@@ -23,6 +23,21 @@
       </select>
     </div>
 
+    <div v-if="favoriteDogs.length" class="favorites-section">
+      <h3>Favorites</h3>
+      <div class="dog-list">
+        <div v-for="dog in favoriteDogs" :key="dog.name" class="dog-card" @click="openDogModal(dog)">
+          <img :src="dog.image" :alt="dog.name" class="dog-image" />
+          <div class="dog-info">
+            <p><strong>Name:</strong> {{ dog.name }}</p>
+            <p><strong>Age:</strong> {{ dog.age }}</p>
+            <p><strong>Color:</strong> {{ dog.color }}</p>
+          </div>
+          <button @click.stop="toggleFavorite(dog)">Remove from Favorites</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Add Dog Modal -->
     <div v-if="showForm" class="modal" @click="showForm = false">
       <div class="modal-content" @click.stop>
@@ -47,10 +62,12 @@
           <p><strong>Age:</strong> {{ dog.age }}</p>
           <p><strong>Color:</strong> {{ dog.color }}</p>
         </div>
+        <button @click.stop="toggleFavorite(dog)" class="favorite-button">
+          {{ isFavorite(dog) ? '❤️' : '🤍' }}
+        </button>
       </div>
     </div>
 
-    <!-- Dog Detail Modal -->
     <div v-if="selectedDog" class="modal" @click="selectedDog = null">
       <div class="modal-content" @click.stop>
         <span class="close" @click="selectedDog = null">&times;</span>
@@ -78,6 +95,7 @@ export default {
     return {
       showForm: false,
       selectedDog: null,
+      favorites: [],
       filters: {
         name: "",
         age: "",
@@ -117,6 +135,9 @@ export default {
           (this.filters.color === "" || dog.color.toLowerCase() === this.filters.color.toLowerCase())
         );
       });
+    },
+    favoriteDogs() {
+      return this.dogs.filter(dog => this.favorites.includes(dog.name));
     }
   },
   methods: {
@@ -141,6 +162,16 @@ export default {
         this.newDog = { name: "", age: "", characteristic: "", health: "", color: "", image: "" };
         this.showForm = false;
       }
+    },
+    toggleFavorite(dog) {
+      if (this.favorites.includes(dog.name)) {
+        this.favorites = this.favorites.filter(name => name !== dog.name);
+      } else {
+        this.favorites.push(dog.name);
+      }
+    },
+    isFavorite(dog) {
+      return this.favorites.includes(dog.name);
     }
   }
 };
@@ -210,5 +241,11 @@ header {
   width: 250px;
   text-align: left;
   cursor: pointer;
+}
+.favorites-section {
+  margin-top: 20px;
+  padding: 10px;
+  background: #f8e9a1;
+  border-radius: 10px;
 }
 </style>
