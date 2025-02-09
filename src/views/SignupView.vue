@@ -1,29 +1,35 @@
-  <template>
+<template>
     <div class="container">
       <div class="form-wrapper">
         <!-- Profile Image -->
-        <img src="..\assets\dog1.jpg" alt="Profile" class="profile-img" />
+        <img src="../assets/dog1.jpg" alt="Profile" class="profile-img" />
   
         <!-- Form Card -->
         <div class="form-card">
           <h2 class="title">Welcome!</h2>
   
           <form @submit.prevent="register">
-            <input v-model="name" type="text" placeholder="Name" class="input-field" />
-            <input v-model="surname" type="text" placeholder="Surname" class="input-field" />
-            <input v-model="email" type="email" placeholder="E-mail" class="input-field" />
-            <input v-model="username" type="text" placeholder="Username" class="input-field" />
-            <input v-model="password" type="password" placeholder="Password" class="input-field" />
+            <input v-model="name" type="text" placeholder="Name" class="input-field" required />
+            <input v-model="surname" type="text" placeholder="Surname" class="input-field" required />
+            <input v-model="email" type="email" placeholder="E-mail" class="input-field" required />
+            <input v-model="username" type="text" placeholder="Username" class="input-field" required />
+            <input v-model="password" type="password" placeholder="Password" class="input-field" required />
   
             <button type="button" class="btn login-btn" @click="goToLogin">Go to login</button>
             <button type="submit" class="btn register-btn">Register</button>
           </form>
+  
+          <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
         </div>
       </div>
     </div>
   </template>
   
   <script>
+  import { auth, db } from "@/firebase"; // Import Firebase auth & Firestore
+  import { createUserWithEmailAndPassword } from "firebase/auth";
+  import { setDoc, doc } from "firebase/firestore"; // Store user details
+  
   export default {
     data() {
       return {
@@ -31,19 +37,36 @@
         surname: "",
         email: "",
         username: "",
-        password: ""
+        password: "",
+        errorMessage: "",
       };
     },
     methods: {
-      register() {
-        alert(`User ${this.name} registered successfully!`);
-        // Add your registration logic here (e.g., API call)
-        this.$router.push("/login"); // Redirect to login page
+      async register() {
+        try {
+          // Create user in Firebase Auth
+          const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
+          const user = userCredential.user;
+  
+          // Store additional user info in Firestore
+          await setDoc(doc(db, "users", user.uid), {
+            name: this.name,
+            surname: this.surname,
+            email: this.email,
+            username: this.username,
+            createdAt: new Date(),
+          });
+  
+          // Redirect to login page
+          this.$router.push("/login");
+        } catch (error) {
+          this.errorMessage = error.message;
+        }
       },
       goToLogin() {
-        this.$router.push("/login"); // Redirect to login page
-      }
-    }
+        this.$router.push("/login");
+      },
+    },
   };
   </script>
   
@@ -127,6 +150,13 @@
   
   .register-btn:hover {
     background-color: darkgray;
+  }
+  
+  /* Error Message */
+  .error {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
   }
   </style>
   
