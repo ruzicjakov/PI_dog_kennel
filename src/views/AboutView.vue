@@ -2,7 +2,7 @@
     <div class="container">
       <!-- Header -->
       <div class="header">
-        <img src="https://placekitten.com/50/50" alt="Logo" class="logo" />
+        <img src="@/assets/paw.jpg" alt="Logo" class="logo" />
         <div class="title">
           <h1>Insignis Natura da Casali</h1>
           <p>Kennel from Zadar</p>
@@ -38,9 +38,6 @@
           </div>
         </div>
   
-        <div class="image-content">
-          <img src="https://placekitten.com/400/300" alt="Dogs" />
-        </div>
       </div>
   
       <!-- Footer -->
@@ -48,7 +45,7 @@
         <span>Insignis Natura</span>
         <div class="footer-right">
           <button class="home-btn" @click="goToHome">Home page</button>
-          <img src="https://placekitten.com/40/40" alt="Profile" class="profile" />
+          <img src="@/assets/paw.jpg" alt="Logo" class="logo" />
           <button class="about-btn" @click="goToAbout">About us</button>
         </div>
       </div>
