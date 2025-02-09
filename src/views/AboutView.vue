@@ -47,16 +47,23 @@
       <div class="footer">
         <span>Insignis Natura</span>
         <div class="footer-right">
-          <button class="home-btn">Home page</button>
+          <button class="home-btn" @click="goToHome">Home page</button>
           <img src="https://placekitten.com/40/40" alt="Profile" class="profile" />
-          <button class="about-btn">About us</button>
+          <button class="about-btn" @click="goToAbout">About us</button>
         </div>
       </div>
     </div>
   </template>
   
   <script>
-  export default {};
+  export default {
+    name: 'About',
+    methods: {
+      goToHome(){
+        this.$router.push('/');
+      }
+    }
+  };
   </script>
   
   <style scoped>
