@@ -66,8 +66,9 @@
         </div>
         
         <button @click.stop="toggleFavorite(dog)" class="favorite-button">
-          <!--{{ isFavorite(dog) ? '❤️' : '🤍' }}-->
-        </button> 
+  <i :class="dog.isFavorite ? 'fas fa-heart text-red-500' : 'far fa-heart'"></i>
+</button>
+
       </div>
     </div>
 
@@ -306,4 +307,14 @@ header {
   background: #f8e9a1;
   border-radius: 10px;
 }
+
+.favorite-button i {
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.favorite-button i.fas {
+  color: red;
+}
+
 </style>
