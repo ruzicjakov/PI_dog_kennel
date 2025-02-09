@@ -17,6 +17,12 @@
   
         <button @click="nextDog" class="carousel-btn right-btn">➡</button>
       </div>
+  
+      <div class="intro-text">
+        <p>🐾 Welcome to our little world filled with love and wagging tails!  
+      These adorable pups can't wait to steal your heart.  
+      Every picture tells a story of adventure, loyalty, and endless cuddles. 💛</p>
+      </div>
     </div>
   </template>
   
@@ -27,7 +33,7 @@
         dogImages: [
           require("@/assets/puppy1.jpg"),
           require("@/assets/puppy2.jpg"),
-          require("@/assets/puppy3.jpg"), 
+          require("@/assets/puppy3.jpg"),
           require("@/assets/dog1.jpg"),
           require("@/assets/puppy4.jpg"),
           require("@/assets/puppy5.jpg"),
@@ -46,11 +52,11 @@
       autoRotate() {
         setInterval(() => {
           this.nextDog();
-        }, 2200); 
+        }, 2200);
       }
     },
     mounted() {
-      this.autoRotate(); 
+      this.autoRotate();
     }
   };
   </script>
@@ -144,6 +150,20 @@
   
   .carousel-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+
+  .intro-text {
+    text-align: center;
+    margin-top: 20px;
+    max-width: 400px;
+    font-size: 16px;
+    font-style: italic;
+    color: #555;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   </style>
   
