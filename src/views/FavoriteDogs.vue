@@ -2,7 +2,6 @@
     <div class="container">
       <header>
         <h1>Favorite Dogs</h1>
-        <button @click="$router.push('/')" class="back-button">Back to Home</button>
       </header>
   
       <div v-if="favoriteDogs.length > 0" class="dog-list">
