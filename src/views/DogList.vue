@@ -23,20 +23,7 @@
       </select>
     </div>
 
-    <div v-if="favoriteDogs.length" class="favorites-section">
-      <h3>Favorites</h3>
-      <div class="dog-list">
-        <div v-for="dog in favoriteDogs" :key="dog.name" class="dog-card" @click="openDogModal(dog)">
-          <img :src="dog.image" :alt="dog.name" class="dog-image" />
-          <div class="dog-info">
-            <p><strong>Name:</strong> {{ dog.name }}</p>
-            <p><strong>Age:</strong> {{ dog.age }}</p>
-            <p><strong>Color:</strong> {{ dog.color }}</p>
-          </div>
-          <button @click.stop="toggleFavorite(dog)">Remove from Favorites</button>
-        </div>
-      </div>
-    </div>
+    
 
     <!-- Add Dog Modal -->
     <div v-if="showForm" class="modal" @click="showForm = false">
