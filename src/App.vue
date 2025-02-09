@@ -1,12 +1,17 @@
 <template>
+      <NavbarButton />
 <router-view></router-view>
 </template>
 
 <script>
+import NavbarButton from "@/components/NavbarButton.vue";
 
 export default {
-  name: 'App'
-}
+  name: 'App',
+  components: {
+    NavbarButton
+  }
+};
 </script>
 
 <style>
