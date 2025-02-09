@@ -1,54 +1,61 @@
 <template>
     <div class="container">
-      <!-- Header -->
       <div class="header">
-        <img src="https://placekitten.com/50/50" alt="Logo" class="logo" />
+        <img src="@/assets/paw.jpg" alt="Logo" class="logo" />
         <div class="title">
           <h1>Insignis Natura da Casali</h1>
           <p>Kennel from Zadar</p>
         </div>
       </div>
   
-      <!-- Content -->
-      <div class="content">
-        <div class="card male">
-          <img src="https://placekitten.com/200/250" alt="Male Puppy" />
-          <h2>Male</h2>
+      <div class="carousel">
+        <button @click="prevDog" class="carousel-btn left-btn">⬅</button>
+  
+        <div class="carousel-inner">
+          <img :src="dogImages[currentDog]" :alt="'Dog ' + (currentDog + 1)" class="dog-image" />
         </div>
   
-        <div class="card female">
-          <img src="https://placekitten.com/200/250" alt="Female Puppy" />
-          <h2>Female</h2>
-        </div>
-      </div>
-  
-      <!-- Footer -->
-      <div class="footer">
-        <span>Insignis Natura</span>
-        <div class="footer-right">
-          <img src="https://placekitten.com/40/40" alt="Profile" class="profile" />
-          <button @click="goToAbout" class="about-btn">About us</button>
-          <button @click="goToFavorites" class="favorites-btn">Favorites</button>
-        </div>
+        <button @click="nextDog" class="carousel-btn right-btn">➡</button>
       </div>
     </div>
   </template>
   
   <script>
   export default {
+    data() {
+      return {
+        dogImages: [
+          require("@/assets/puppy1.jpg"),
+          require("@/assets/puppy2.jpg"),
+          require("@/assets/puppy3.jpg"), 
+          require("@/assets/dog1.jpg"),
+          require("@/assets/puppy4.jpg"),
+          require("@/assets/puppy5.jpg"),
+          require("@/assets/puppy6.jpg")
+        ],
+        currentDog: 0,
+      };
+    },
     methods: {
-        goToAbout() {
-        this.$router.push('/about');
+      nextDog() {
+        this.currentDog = (this.currentDog + 1) % this.dogImages.length;
       },
-      goToFavorites() {
-        this.$router.push('/favorites');
+      prevDog() {
+        this.currentDog = (this.currentDog - 1 + this.dogImages.length) % this.dogImages.length;
+      },
+      autoRotate() {
+        setInterval(() => {
+          this.nextDog();
+        }, 2200); 
       }
+    },
+    mounted() {
+      this.autoRotate(); 
     }
   };
   </script>
   
   <style scoped>
-  /* General styles */
   .container {
     display: flex;
     flex-direction: column;
@@ -58,7 +65,6 @@
     font-family: Arial, sans-serif;
   }
   
-  /* Header */
   .header {
     display: flex;
     align-items: center;
@@ -90,75 +96,54 @@
     font-size: 14px;
   }
   
-  /* Content */
-  .content {
+  .carousel {
     display: flex;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
     margin-top: 40px;
+    width: 300px;
+    height: 300px;
+    position: relative;
   }
   
-  .card {
-    width: 250px;
-    padding: 20px;
+  .carousel-inner {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .dog-image {
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
-    text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+    transition: opacity 0.5s ease-in-out;
   }
   
-  .card img {
-    width: 100%;
-    border-radius: 10px;
-  }
-  
-  .male {
-    background-color: #f8d7da;
-  }
-  
-  .female {
-    background-color: #d4edda;
-  }
-  
-  h2 {
-    margin-top: 10px;
-    font-size: 20px;
-    color: #2c3e50;
-  }
-  
-  /* Footer */
-  .footer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    background-color: white;
-    padding: 15px;
-    margin-top: 40px;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    align-items: center;
-  }
-  
-  .footer-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .about-btn {
-    background-color: black;
+  .carousel-btn {
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 10px;
     cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    border-radius: 50%;
   }
   
-  .about-btn:hover {
-    background-color: gray;
+  .left-btn {
+    left: -40px;
+  }
+  
+  .right-btn {
+    right: -40px;
+  }
+  
+  .carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
   }
   </style>
   
