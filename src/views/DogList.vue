@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <header>
-      <img src="/path-to-logo.jpg" alt="Kennel Logo" class="logo" />
+      <img src="@/assets/paw.jpg" alt="Logo" class="logo" />
       <h1>Insignis Natura da Casali</h1>
-      <h2>Kennel from </h2>
+      <h2>Kennel from Zadar</h2>
     </header>
 
     <button @click="showForm = true" class="add-dog-button">Add New Dog</button>
@@ -133,6 +133,13 @@ export default {
     }
   },
   methods: {
+
+    goHome(){
+      this.$router.push('/');
+    },
+    goAbout(){
+      this.$router.push('/about');
+    },
     async fetchDogs() {
       try {
         if (!db) {
@@ -304,4 +311,10 @@ header {
   color: red;
 }
 
+.dog-image {
+  width: 200px; 
+  height: 200px;
+  object-fit: cover; 
+  border-radius: 10px;
+}
 </style>
