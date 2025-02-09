@@ -44,10 +44,10 @@
         <span class="close" @click="showForm = false">&times;</span>
         <h3>Add a New Dog</h3>
         <form @submit.prevent="addDog">
-          <input v-model="newDog.name" placeholder="Name" required />
-          <input v-model="newDog.age" placeholder="Age" required />
-          <input v-model="newDog.characteristic" placeholder="Characteristic" required />
-          <input v-model="newDog.color" placeholder="Color" required />
+          <input v-model="newDog.name" placeholder="Name" />
+          <input v-model="newDog.age" placeholder="Age"  />
+          <input v-model="newDog.characteristic" placeholder="Characteristic" />
+          <input v-model="newDog.color" placeholder="Color"  />
           <input v-model="newDog.health" placeholder="Health State" />
           <input type="file" @change="onFileChange" accept="image/*"  />
           <button type="submit">Add Dog</button>
@@ -145,10 +145,8 @@ export default {
     }
   },
   methods: {
-    // Fetch Dogs from Firestore
     async fetchDogs() {
       try {
-        // Ensure db is initialized
         if (!db) {
           throw new Error("Firestore instance (db) is not initialized.");
         }
@@ -161,30 +159,33 @@ export default {
       }
     },
 
-    // Add a Dog to Firestore
     async addDog() {
-      if (this.newDog.name && this.newDog.age !== "" && this.newDog.characteristic &&
-          this.newDog.health && this.newDog.color && this.newDog.image) {
-        try {
-          const dogData = { 
-            ...this.newDog,
-            image: this.newDog.image, 
-            isFavorite: false 
-          };
+  const defaultDog = {
+    name: "unknown",
+    age: "unknown",
+    characteristic: "unknown",
+    health: "unknown",
+    color: "unknown",
+    image: "unknown",
+    isFavorite: false
+  };
 
-          console.log("New Dog Data:", this.newDog);
-          const docRef = await addDoc(collection(db, "dogs"), dogData);
-          this.dogs.push({ id: docRef.id, ...dogData }); 
-          this.newDog = { name: "", age: "", characteristic: "", health: "", color: "", image: "", isFavorite: false };
-          this.showForm = false;
-        } catch (error) {
-          console.error("Error adding dog:", error);
-        }
-      } else {
-        console.log("New Dog Data:", this.newDog);
-        console.log("All fields are required.");
-      }
-    },
+  const dogData = {
+    ...defaultDog, 
+    ...this.newDog 
+  };
+
+  try {
+    console.log("New Dog Data:", dogData);
+    const docRef = await addDoc(collection(db, "dogs"), dogData);
+    this.dogs.push({ id: docRef.id, ...dogData });
+    this.newDog = { name: "", age: "", characteristic: "", health: "", color: "", image: "", isFavorite: false };
+    this.showForm = false;
+  } catch (error) {
+    console.error("Error adding dog:", error);
+  }
+},
+
     async toggleFavorite(dog) {
     try {
       const dogRef = doc(db, "dogs", dog.id);
