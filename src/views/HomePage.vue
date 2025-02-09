@@ -27,14 +27,24 @@
         <span>Insignis Natura</span>
         <div class="footer-right">
           <img src="https://placekitten.com/40/40" alt="Profile" class="profile" />
-          <button class="about-btn">About us</button>
+          <button @click="goToAbout" class="about-btn">About us</button>
+          <button @click="goToFavorites" class="favorites-btn">Favorites</button>
         </div>
       </div>
     </div>
   </template>
   
   <script>
-  export default {};
+  export default {
+    methods: {
+        goToAbout() {
+        this.$router.push('/about');
+      },
+      goToFavorites() {
+        this.$router.push('/favorites');
+      }
+    }
+  };
   </script>
   
   <style scoped>
