@@ -37,7 +37,14 @@
             <button class="contact-btn">CONTACT US</button>
           </div>
         </div>
+      </div>
   
+      <!-- Map Section -->
+      <div class="map-container">
+        <h2>Our Location</h2>
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d106808.17117735624!2d15.129223578261975!3d44.18158180708394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1shr!2shr!4v1739133398561!5m2!1shr!2shr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
       </div>
   
       <!-- Footer -->
@@ -54,16 +61,20 @@
   
   <script>
   export default {
-    name: 'About',
+    name: "About",
     methods: {
-      goToHome(){
-        this.$router.push('/');
+      goToHome() {
+        this.$router.push("/");
+      },
+      goToAbout() {
+        this.$router.push("/about");
       }
     }
   };
   </script>
   
   <style scoped>
+  /* General styles */
   .container {
     display: flex;
     flex-direction: column;
@@ -73,6 +84,7 @@
     font-family: Arial, sans-serif;
   }
   
+  /* Header */
   .header {
     display: flex;
     align-items: center;
@@ -99,11 +111,7 @@
     font-size: 24px;
   }
   
-  p {
-    margin: 0;
-    font-size: 14px;
-  }
-  
+  /* About Section */
   .about-section {
     display: flex;
     max-width: 900px;
@@ -127,11 +135,7 @@
     line-height: 1.5;
   }
   
-  .image-content img {
-    max-width: 100%;
-    border-radius: 10px;
-  }
-  
+  /* Contact Box */
   .contact-box {
     background: #eaeaea;
     padding: 15px;
@@ -154,6 +158,24 @@
     background-color: gray;
   }
   
+  /* Map */
+  .map-container {
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+  }
+  
+  .map-container iframe {
+    width: 100%;
+    height: 400px;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+  }
+  
+  /* Footer */
   .footer {
     display: flex;
     justify-content: space-between;
@@ -168,13 +190,6 @@
   .footer-right {
     display: flex;
     align-items: center;
-  }
-  
-  .profile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-left: 10px;
   }
   
   .home-btn,
