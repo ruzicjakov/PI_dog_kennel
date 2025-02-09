@@ -4,6 +4,7 @@ import Login from '@/views/LoginView.vue';
 import Home from '@/views/HomePage.vue'; 
 import About from '@/views/AboutView.vue'; 
 import DogList from '@/views/DogList.vue';
+import FavoriteDogs from '@/views/FavoriteDogs.vue';
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
         path: '/doglist',
         name: 'DogList',
         component: DogList 
+    },
+    {
+        path: '/favorites',
+        name: 'FavoriteDogs',
+        component: FavoriteDogs
     }
 ];
 
