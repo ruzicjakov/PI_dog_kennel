@@ -9,7 +9,7 @@
         <h2 class="title">Welcome!</h2>
 
         <form @submit.prevent="login">
-          <input v-model="username" type="email" placeholder="E-mail" class="input-field" required />
+          <input v-model="email" type="email" placeholder="E-mail" class="input-field" required />
           <input v-model="password" type="password" placeholder="Password" class="input-field" required />
 
           <button type="submit" class="btn login-btn">Login</button>
