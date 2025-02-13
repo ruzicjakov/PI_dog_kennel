@@ -1,6 +1,9 @@
 <template>
-      <NavbarButton />
-<router-view></router-view>
+  <div v-if="!isAuthChecked">Loading...</div>
+  <div v-else>
+    <NavbarButton :isLoggedIn="!!user" />
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -16,11 +19,14 @@ export default {
   data() {
     return {
       user: null,
+      isAuthChecked: false,
     };
   },
   created() {
     onAuthStateChanged(auth, (user) => {
-      this.user = user; // Sprema trenutno prijavljenog korisnika
+      this.user = user; 
+      this.isAuthChecked = true; 
+      console.log("User is logged in:", this.user);
     });
   },
 };
