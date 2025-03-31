@@ -202,12 +202,6 @@ export default {
     this.selectedDog = dog;
   },
   
-    
-    async toggleFavorite(dog) {
-      const dogRef = doc(db, "dogs", dog.id);
-      await updateDoc(dogRef, { isFavorite: !dog.isFavorite });
-      
-    },
 
     async onFileChange(event) {
       const file = event.target.files[0];
